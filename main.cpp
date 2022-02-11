@@ -11,13 +11,12 @@ typedef carattere *lista;
 // Inserisce il carattere “daIns” in coda alla lista “stringa”.
 void inserimentoInCoda(lista &stringa, carattere daIns) {
 
-    lista p = 0, q;
+    lista p, q;
     for (q = stringa; q != 0; q = q->succ) p = q;
-    q = new carattere;
 
-    for (int i = 0; i < BYTE + 1; i++) {
-        q->binario[i] = daIns.binario[i];
-    }
+    q = new carattere;
+    *q=daIns;
+    q->succ=0;
 
     if (stringa == 0) stringa = q;
     else p->succ = q;
@@ -27,7 +26,13 @@ void inserimentoInCoda(lista &stringa, carattere daIns) {
 
 // Rimuove tutti gli elementi della lista “stringa”.
 void svuotaLista(lista &stringa) {
-    for (lista q = stringa; q != 0; q = q->succ) q = 0;
+
+    while (stringa != 0)
+    {
+        lista q = stringa;
+        stringa = stringa->succ;
+        delete q;
+    }
 // 3 Punti
 }
 
@@ -36,7 +41,12 @@ esecuzione. */
 void stampaLista(lista stringa) {
     //int i=0;
     lista p;
-    for (p = stringa; p != 0; p = p->succ) cout << p->binario << '\t';
+    while(stringa!=0){
+        cout<<stringa->binario<<' ';
+        stringa=stringa->succ;
+    }
+    cout<<endl;
+    //for (p = stringa; p != 0; p = p->succ) cout << p->binario << '\t';
 
 // 2 Punti
 }
@@ -64,22 +74,24 @@ void conversioneBinaria(char *convertito, char input) {
 continuazione o la terminazione del programma. */
 int main() {
 
+    /*
     int n,esp;
     cin>>n>>esp;
     cout<<potenza(n,esp);
-/*
+     */
+
     lista str{};
     carattere ins;
     cin >> ins.binario;
     inserimentoInCoda(str, ins);
-    //svuotaLista(str);
+    svuotaLista(str);
     cin >> ins.binario;
     inserimentoInCoda(str, ins);
     cin >> ins.binario;
     inserimentoInCoda(str, ins);
     //svuotaLista(str);
     stampaLista(str);
-*/
+
 
 // 4 Punti
 }
