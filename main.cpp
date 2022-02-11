@@ -15,8 +15,8 @@ void inserimentoInCoda(lista &stringa, carattere daIns) {
     for (q = stringa; q != 0; q = q->succ) p = q;
 
     q = new carattere;
-    *q=daIns;
-    q->succ=0;
+    *q = daIns;
+    q->succ = 0;
 
     if (stringa == 0) stringa = q;
     else p->succ = q;
@@ -27,8 +27,7 @@ void inserimentoInCoda(lista &stringa, carattere daIns) {
 // Rimuove tutti gli elementi della lista “stringa”.
 void svuotaLista(lista &stringa) {
 
-    while (stringa != 0)
-    {
+    while (stringa != 0) {
         lista q = stringa;
         stringa = stringa->succ;
         delete q;
@@ -41,11 +40,11 @@ esecuzione. */
 void stampaLista(lista stringa) {
     //int i=0;
     lista p;
-    while(stringa!=0){
-        cout<<stringa->binario<<' ';
-        stringa=stringa->succ;
+    while (stringa != 0) {
+        cout << stringa->binario << ' ';
+        stringa = stringa->succ;
     }
-    cout<<endl;
+    cout << endl;
     //for (p = stringa; p != 0; p = p->succ) cout << p->binario << '\t';
 
 // 2 Punti
@@ -53,10 +52,10 @@ void stampaLista(lista stringa) {
 
 // Restituisce il valore di “n” elevato alla potenza “esponente”.
 int potenza(int n, unsigned esponente) {
-    int base=n;
-    for(int i=1;i<esponente;i++) {
+    int base = n;
+    for (int i = 1; i < esponente; i++) {
         //cout<<n<<" * "<<base<<" = ";
-        n*=base;
+        n *= base;
         //cout<<n<<endl;
     }
     return n;
@@ -80,16 +79,44 @@ int main() {
     cout<<potenza(n,esp);
      */
 
+
     lista str{};
     carattere ins;
-    cin >> ins.binario;
-    inserimentoInCoda(str, ins);
-    svuotaLista(str);
-    cin >> ins.binario;
-    inserimentoInCoda(str, ins);
-    cin >> ins.binario;
-    inserimentoInCoda(str, ins);
-    //svuotaLista(str);
+    char scelta;
+    bool run;
+    bool bad;
+    do {
+        cout << "Scrivere i caratteri da convertire in binario:" << endl;
+        cin >> ins.binario;
+        inserimentoInCoda(str, ins);
+        cout << "Conversione: ";
+
+        do {
+            cout << "Vuoi continuare? s/n:" << endl;
+            cin >> scelta;
+
+            switch (scelta) {
+                case 's':
+                case 'S':
+                    run = true;
+                    bad = false;
+                    break;
+
+                case 'n':
+                case 'N':
+                    run = false;
+                    bad = false;
+                    break;
+
+                default:
+                    bad = true;
+                    cout << "Carattere non ammesso" << endl;
+
+            }
+        } while (bad);
+    } while (run);
+
+
     stampaLista(str);
 
 
