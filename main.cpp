@@ -66,6 +66,13 @@ int potenza(int n, unsigned esponente) {
 rappresentandola come una sequenza di caratteri “0” e “1” da inserire nella
 stringa “convertito”. */
 void conversioneBinaria(char *convertito, char input) {
+    for (int i = 7; i >= 0; i--) {
+        int pow2 = potenza(2, i);
+        if (input & pow2) {
+            convertito[7 - i] = '1';
+        } else convertito[7 - i] = '0';
+    }
+    convertito[8] = '\0';
 // 4 Punti
 }
 
@@ -73,29 +80,30 @@ void conversioneBinaria(char *convertito, char input) {
 continuazione o la terminazione del programma. */
 int main() {
 
-    /*
-    int n,esp;
-    cin>>n>>esp;
-    cout<<potenza(n,esp);
-     */
-
-
-    lista str{};
+    char input = 0;
+    lista str = 0;
     carattere ins;
+    ins.succ = 0;
+
     char scelta;
     bool run;
     bool bad;
     do {
         cout << "Scrivere i caratteri da convertire in binario:" << endl;
-        cin >> ins.binario;
-        inserimentoInCoda(str, ins);
-        cout << "Conversione: ";
+        while (input != '\n') {
+            cin.get(input);
+            conversioneBinaria(ins.binario, input);
+            inserimentoInCoda(str, ins);
+        }
+        cout << "Conversione: " << endl;
+        stampaLista(str);
+        svuotaLista(str);
 
         do {
             cout << "Vuoi continuare? s/n:" << endl;
-            cin >> scelta;
+            cin >> input;
 
-            switch (scelta) {
+            switch (input) {
                 case 's':
                 case 'S':
                     run = true;
@@ -114,10 +122,10 @@ int main() {
 
             }
         } while (bad);
+        cin.ignore();
     } while (run);
 
 
-    stampaLista(str);
 
 
 // 4 Punti
