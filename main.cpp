@@ -20,8 +20,6 @@ void inserimentoInCoda(lista &stringa, carattere daIns) {
 
     if (stringa == 0) stringa = q;
     else p->succ = q;
-
-// 3 Punti
 }
 
 // Rimuove tutti gli elementi della lista “stringa”.
@@ -32,34 +30,24 @@ void svuotaLista(lista &stringa) {
         stringa = stringa->succ;
         delete q;
     }
-// 3 Punti
 }
 
 /* Stampa a schermo gli elementi della lista “stringa” come nell'esempio di
 esecuzione. */
 void stampaLista(lista stringa) {
-    //int i=0;
-    lista p;
+
     while (stringa != 0) {
         cout << stringa->binario << ' ';
         stringa = stringa->succ;
     }
     cout << endl;
-    //for (p = stringa; p != 0; p = p->succ) cout << p->binario << '\t';
-
-// 2 Punti
 }
 
 // Restituisce il valore di “n” elevato alla potenza “esponente”.
 int potenza(int n, unsigned esponente) {
     int base = n;
-    for (int i = 1; i < esponente; i++) {
-        //cout<<n<<" * "<<base<<" = ";
-        n *= base;
-        //cout<<n<<endl;
-    }
+    for (int i = 1; i < esponente; i++) n *= base;
     return n;
-// 2 Punti
 }
 
 /* Esegue la conversione in codice ASCII (binario) del carattere “input”,
@@ -68,12 +56,20 @@ stringa “convertito”. */
 void conversioneBinaria(char *convertito, char input) {
     for (int i = 7; i >= 0; i--) {
         int pow2 = potenza(2, i);
-        if (input & pow2) {
-            convertito[7 - i] = '1';
-        } else convertito[7 - i] = '0';
+        /* Bitwise AND operator.
+         *
+         * Prende i binari dei due operandi e li confronta bit per bit.
+         * Es.
+         * 8 = 1 0 0 0
+         * 7 = 0 1 1 1
+         *
+         * Risultato 0.
+         *
+         */
+        if (input & pow2) convertito[7 - i] = '1';
+        else convertito[7 - i] = '0';
     }
     convertito[8] = '\0';
-// 4 Punti
 }
 
 /* Programma principale: chiama le funzioni precedenti e gestisce la
@@ -85,9 +81,9 @@ int main() {
     carattere ins;
     ins.succ = 0;
 
-    char scelta;
     bool run;
     bool bad;
+
     do {
         cout << "Scrivere i caratteri da convertire in binario:" << endl;
         while (input != '\n') {
@@ -98,11 +94,9 @@ int main() {
         cout << "Conversione: " << endl;
         stampaLista(str);
         svuotaLista(str);
-
         do {
             cout << "Vuoi continuare? s/n:" << endl;
             cin >> input;
-
             switch (input) {
                 case 's':
                 case 'S':
@@ -119,14 +113,9 @@ int main() {
                 default:
                     bad = true;
                     cout << "Carattere non ammesso" << endl;
-
             }
         } while (bad);
         cin.ignore();
     } while (run);
-
-
-
-
-// 4 Punti
+    return 0;
 }
