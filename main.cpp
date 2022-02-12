@@ -10,21 +10,17 @@ typedef carattere *lista;
 
 // Inserisce il carattere “daIns” in coda alla lista “stringa”.
 void inserimentoInCoda(lista &stringa, carattere daIns) {
-
     lista p, q;
     for (q = stringa; q != 0; q = q->succ) p = q;
-
     q = new carattere;
     *q = daIns;
     q->succ = 0;
-
     if (stringa == 0) stringa = q;
     else p->succ = q;
 }
 
 // Rimuove tutti gli elementi della lista “stringa”.
 void svuotaLista(lista &stringa) {
-
     while (stringa != 0) {
         lista q = stringa;
         stringa = stringa->succ;
@@ -35,7 +31,6 @@ void svuotaLista(lista &stringa) {
 /* Stampa a schermo gli elementi della lista “stringa” come nell'esempio di
 esecuzione. */
 void stampaLista(lista stringa) {
-
     while (stringa != 0) {
         cout << stringa->binario << ' ';
         stringa = stringa->succ;
@@ -45,9 +40,13 @@ void stampaLista(lista stringa) {
 
 // Restituisce il valore di “n” elevato alla potenza “esponente”.
 int potenza(int n, unsigned esponente) {
-    int base = n;
-    for (int i = 1; i < esponente; i++) n *= base;
-    return n;
+    int pot;
+    for (pot = 1; esponente > 0; esponente--) pot *= n;
+    /* Senza for
+     * pot = 1;
+     * while (esponente-- > 0) pot *= n;
+     */
+    return pot;
 }
 
 /* Esegue la conversione in codice ASCII (binario) del carattere “input”,
@@ -112,7 +111,7 @@ int main() {
 
                 default:
                     bad = true;
-                    cout << "Carattere non ammesso" << endl;
+                    cout << "Usa solo caratteri consentiti!" << endl;
             }
         } while (bad);
         cin.ignore();
